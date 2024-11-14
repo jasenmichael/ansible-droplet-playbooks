@@ -1,0 +1,30 @@
+- name: Provision Node Droplet
+  hosts: all
+  become: yes
+  vars_files:
+    - /home/www/ansible/vars.yml
+  tasks:
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+    - name: Install npm
+      apt:
+        name: npm
+        state: present
+    - name: Clone application repository
+      git:
+        repo: "https://github.com/{{ secrets.GITHUB_REPOSITORY }}.git"
+        dest: /home/www/app
+        version: main
+        update: yes
+    - name: Install dependencies
+      npm:
+        path: /home/www/app
+        state: present
+    - name: Set permissions for www user
+      file:
+        path: /home/www/app
+        owner: www
+        group: www
+        mode: "u=rwx,g=rx,o=rx"

@@ -1,8 +1,6 @@
 - name: Provision Node Droplet
   hosts: localhost
   become: yes
-  vars_files:
-    - /home/www/ansible/vars.yml
   tasks:
     - name: Install Node.js
       apt:

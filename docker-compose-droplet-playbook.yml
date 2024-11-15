@@ -7,6 +7,11 @@
       apt:
         name: docker.io
         state: present
+            
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
 
     - name: Install pip for Python 3
       apt:
@@ -43,7 +48,7 @@
         force: no
 
     - name: Run Docker Compose up
-      command: docker compose -f "{{ DOCKER_COMPOSE_PATH | default(APP_PATH + '/docker-compose.yml') }}" up -d
+      command: docker-compose -f "{{ DOCKER_COMPOSE_PATH | default(APP_PATH + '/docker-compose.yml') }}" up -d
 
     - name: Set permissions for www user
       file:

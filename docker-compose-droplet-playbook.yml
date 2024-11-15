@@ -17,7 +17,6 @@
     - name: Install Docker and dependencies
       apt:
         pkg:
-        - install 
         - ca-certificates 
         - curl 
         - gnupg 

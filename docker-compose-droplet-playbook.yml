@@ -58,12 +58,13 @@
         update: yes
         force: no
 
-    - name: Run Docker Compose up
-      command: docker compose -f "{{ DOCKER_COMPOSE_PATH | default(APP_PATH + '/docker-compose.yml') }}" up -d
-
     - name: Set permissions for www user
       file:
         path: /home/www/app
         owner: www
         group: www
         mode: "u=rwx,g=rx,o=rx"
+
+    - name: Run Docker Compose up
+      command: docker compose -f "{{ DOCKER_COMPOSE_PATH | default(APP_PATH + '/docker-compose.yml') }}" up -d
+

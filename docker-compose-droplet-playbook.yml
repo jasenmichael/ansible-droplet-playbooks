@@ -18,10 +18,10 @@
         name: docker
         state: present
 
-    - name: Install Docker Compose
-      pip:
-        name: docker-compose
-        state: present
+    # - name: Install Docker Compose
+    #   pip:
+    #     name: docker-compose
+    #     state: present
 
     # - name: Install pip cryptography for Python
     #   pip:

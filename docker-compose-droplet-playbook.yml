@@ -1,6 +1,7 @@
-- name: Provision Docker Droplet
+- name: Provision Docker Droplet with Docker Compose
   connection: local
   become: yes
+
   tasks:
     - name: Install Docker
       apt:
@@ -17,21 +18,25 @@
         name: docker
         state: present
 
+    - name: Install Docker Compose
+      pip:
+        name: docker-compose
+        state: present
+
     - name: Start Docker service
       service:
         name: docker
         state: started
         enabled: yes
 
-    - name: Create Docker container
-      docker_container:
-        name: app_container
-        image: node:14
-        state: started
-        ports:
-          - "80:80"
-        volumes:
-          - /home/www/app:/usr/src/app
+    - name: Clone repository to APP_PATH
+      git:
+        repo: "https://github.com/{{ GITHUB_REPOSITORY }}"
+        dest: "{{ APP_PATH }}"
+        version: "{{ GITHUB_REPOSITORY_BRANCH }}" 
+
+    - name: Run Docker Compose up
+      command: docker-compose -f "{{ DOCKER_COMPOSE_PATH | default(APP_PATH + '/docker-compose.yml') }}" up -d
 
     - name: Set permissions for www user
       file:

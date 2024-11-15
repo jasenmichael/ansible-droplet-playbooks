@@ -14,10 +14,21 @@
         state: present
         update_cache: yes
 
-    - name: Install Docker
+    - name: Install Docker and dependencies
       apt:
-        name: docker.io
+        pkg:
+        - install 
+        - ca-certificates 
+        - curl 
+        - gnupg 
+        - lsb-release
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
         state: present
+        # name: docker.io
             
     # - name: Install Docker Compose
     #   apt:

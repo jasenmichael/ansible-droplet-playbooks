@@ -23,6 +23,11 @@
         name: docker-compose
         state: present
 
+    # - name: Install pip cryptography for Python
+    #   pip:
+    #     name: cryptography
+    #     state: present
+
     - name: Start Docker service
       service:
         name: docker

@@ -54,13 +54,6 @@
       command: git config --global --add safe.directory {{ APP_PATH }}
       when: git_safe_directory.stdout == "not set"
 
-    - name: Ensure Git safe directory is set
-      git_config:
-        name: safe.directory
-        value: "{{ APP_PATH }}"
-        global: yes
-      when: git_safe_directory.stdout != "{{ APP_PATH }}"
-
     # - name: Set permissions for www user
     #   file:
     #     path: "{{ APP_PATH }}"

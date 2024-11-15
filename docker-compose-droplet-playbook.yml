@@ -49,9 +49,9 @@
 
     - name: Set permissions for www user
       file:
-        path: {{ APP_PATH }}
-        owner: {{ APP_USER }}
-        group: {{ APP_USER }}
+        path: "{{ APP_PATH }}"
+        owner: "{{ APP_USER }}"
+        group: "{{ APP_USER }}"
         mode: "u=rwx,g=rx,o=rx"
   
     - name: Clone/Pull repository to APP_PATH

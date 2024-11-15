@@ -64,7 +64,7 @@
       git:
         repo: "https://github.com/{{ GITHUB_REPOSITORY }}"
         dest: "{{ APP_PATH }}"
-        version: "{{ GITHUB_REPOSITORY_BRANCH }}"
+        version: "{{ GITHUB_REPOSITORY_BRANCH | default('main') }}"
         update: yes
         force: no
 

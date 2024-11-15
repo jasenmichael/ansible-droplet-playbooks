@@ -44,8 +44,23 @@
         state: started
         enabled: yes
 
-    - name: Configure Git safe directory
+    - name: Check if Git safe directory is already configured
+      shell: |
+        git config --global --get safe.directory {{ APP_PATH }} || echo "not set"
+      register: git_safe_directory_check
+      changed_when: false
+    
+    - name: Configure Git safe directory if not set
       command: git config --global --add safe.directory {{ APP_PATH }}
+      when: git_safe_directory_check.stdout == "not set"
+
+    - name: Ensure Git safe directory is set
+      git_config:
+        name: safe.directory
+        value: "{{ APP_PATH }}"
+        global: yes
+      when: "'{{ APP_PATH }}' not in lookup('pipe', 'git config --global --get safe.directory')"
+
 
     # - name: Set permissions for www user
     #   file:

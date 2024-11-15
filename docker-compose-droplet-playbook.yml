@@ -5,8 +5,8 @@
   tasks:
     - name: Add Docker's official GPG key
       apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-      state: present
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
 
     - name: Add Docker APT repository
       apt_repository:

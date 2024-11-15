@@ -1,4 +1,5 @@
 - name: Provision Docker Droplet
+  hosts: localhost
   connection: local
   become: yes
   tasks:

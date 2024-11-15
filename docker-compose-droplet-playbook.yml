@@ -1,7 +1,7 @@
 - name: Provision Docker Droplet with Docker Compose
+  hosts: localhost
   connection: local
   become: yes
-
   tasks:
     - name: Install Docker
       apt:

@@ -44,6 +44,16 @@
         state: started
         enabled: yes
 
+    - name: Configure Git safe directory
+      command: git config --global --add safe.directory {{ APP_PATH }}
+
+    - name: Set permissions for www user
+      file:
+        path: {{ APP_PATH }}
+        owner: {{ APP_USER }}
+        group: {{ APP_USER }}
+        mode: "u=rwx,g=rx,o=rx"
+  
     - name: Clone/Pull repository to APP_PATH
       git:
         repo: "https://github.com/{{ GITHUB_REPOSITORY }}"
@@ -52,12 +62,6 @@
         update: yes
         force: no
 
-    - name: Set permissions for www user
-      file:
-        path: {{ APP_PATH }}
-        owner: {{ APP_USER }}
-        group: {{ APP_USER }}
-        mode: "u=rwx,g=rx,o=rx"
 
     - name: Run Docker Compose up
       command: docker compose -f "{{ DOCKER_COMPOSE_PATH | default(APP_PATH + '/docker-compose.yml') }}" up -d

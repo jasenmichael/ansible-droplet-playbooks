@@ -47,12 +47,12 @@
     - name: Configure Git safe directory
       command: git config --global --add safe.directory {{ APP_PATH }}
 
-    - name: Set permissions for www user
-      file:
-        path: "{{ APP_PATH }}"
-        owner: "{{ APP_USER }}"
-        group: "{{ APP_USER }}"
-        mode: "u=rwx,g=rx,o=rx"
+    # - name: Set permissions for www user
+    #   file:
+    #     path: "{{ APP_PATH }}"
+    #     owner: "{{ APP_USER }}"
+    #     group: "{{ APP_USER }}"
+    #     mode: "u=rwx,g=rx,o=rx"
   
     - name: Clone/Pull repository to APP_PATH
       git:

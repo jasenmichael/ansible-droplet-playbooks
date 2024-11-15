@@ -27,12 +27,6 @@
         - docker-buildx-plugin
         - docker-compose-plugin
         state: present
-        # name: docker.io
-            
-    # - name: Install Docker Compose
-    #   apt:
-    #     name: docker-compose
-    #     state: present
 
     - name: Install pip for Python 3
       apt:
@@ -43,16 +37,6 @@
       pip:
         name: docker
         state: present
-
-    # - name: Install Docker Compose
-    #   pip:
-    #     name: docker-compose
-    #     state: present
-
-    # - name: Install pip cryptography for Python
-    #   pip:
-    #     name: cryptography
-    #     state: present
 
     - name: Start Docker service
       service:
@@ -70,9 +54,9 @@
 
     - name: Set permissions for www user
       file:
-        path: /home/www/app
-        owner: www
-        group: www
+        path: {{ APP_PATH }}
+        owner: {{ APP_USER }}
+        group: {{ APP_USER }}
         mode: "u=rwx,g=rx,o=rx"
 
     - name: Run Docker Compose up
